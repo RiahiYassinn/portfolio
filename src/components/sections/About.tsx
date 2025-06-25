@@ -9,8 +9,9 @@ const About: React.FC = () => {
     threshold: 0.1,
   });
 
-  const profileImage =
-    "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/20201112_110705.jpg";
+  // const profileImage =
+  //   "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/20201112_110705.jpg";
+  const profileImage = "src/assets/Image 25 juin 2025.png";
 
   return (
     <section
