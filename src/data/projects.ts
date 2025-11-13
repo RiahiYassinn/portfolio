@@ -57,7 +57,7 @@ export const projectsData: IProject[] = [
     description:
       "An AI-driven platform that analyzes product performance in real time, detects underperforming items, and automatically generates personalized promotional campaigns or bundling strategies. Integrated with Magento for live data, and powered by Mastra AI for smart decision-making.",
     image:
-      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/ai-agent-retail-promo.png",
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/Analytics.png",
     technologies: [
       "TypeScript",
       "Next.js",
