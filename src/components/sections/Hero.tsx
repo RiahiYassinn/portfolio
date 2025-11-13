@@ -83,9 +83,8 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          I'm a software engineering student specializing in building
-          exceptional digital experiences. Currently, I'm focused on expanding
-          my skills and seeking internship opportunities for Summer 2025.
+          Software engineering student crafting exceptional digital experiences.
+          Currently seeking internship opportunities to apply and grow my skills
         </motion.p>
 
         <motion.div

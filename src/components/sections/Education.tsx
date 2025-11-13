@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import SectionHeader from "../ui/SectionHeader";
-import { GraduationCap, Award, BookOpen } from "lucide-react";
+import { GraduationCap, Award, BookOpen, ExternalLink } from "lucide-react";
 
 const Education: React.FC = () => {
   const [ref, inView] = useInView({
@@ -35,7 +35,14 @@ const Education: React.FC = () => {
       courses: [
         "Graph Developer - Associate",
         "GitHub Foundations",
-        "Python Essentials ",
+        "Cloud Foundations",
+        "Python Essentials",
+      ],
+      links: [
+        "https://www.apollographql.com/tutorials/certifications/979b5748-dd80-491f-8101-7e26ffd75e77",
+        "https://www.credly.com/badges/487547e5-3580-4d5b-9daf-189f097dd3d8/linked_in_profile",
+        "https://www.credly.com/badges/34b05406-2a24-41bc-b54a-7373ab5ca5cc",
+        "https://www.credly.com/badges/7d23b623-550c-4510-bd34-e37d2940178c/linked_in_profile",
       ],
       icon: <Award size={24} className="text-accent-500" />,
     },
@@ -68,6 +75,10 @@ const Education: React.FC = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const handleCertificateClick = (url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -133,10 +144,27 @@ const Education: React.FC = () => {
                       {item.courses.map((course, i) => (
                         <li
                           key={i}
-                          className="text-sm text-dark-400 dark:text-light-300 flex items-start"
+                          className={`text-sm text-dark-400 dark:text-light-300 flex items-start group ${
+                            item.links && item.links[i]
+                              ? "cursor-pointer hover:text-accent-500 transition-colors"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            item.links &&
+                            item.links[i] &&
+                            handleCertificateClick(item.links[i])
+                          }
                         >
-                          <span className="text-accent-500 mr-2">▹</span>{" "}
-                          {course}
+                          <span className="text-accent-500 mr-2">▹</span>
+                          <span className="flex items-center">
+                            {course}
+                            {item.links && item.links[i] && (
+                              <ExternalLink
+                                size={14}
+                                className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                              />
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>

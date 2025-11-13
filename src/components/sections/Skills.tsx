@@ -12,6 +12,9 @@ import {
   Smartphone,
   Terminal,
   GitBranch,
+  Brain,
+  BarChart3,
+  Cloud,
 } from "lucide-react";
 
 // Skill categories with associated technologies
@@ -47,6 +50,30 @@ const skillCategories = [
     color: "secondary",
   },
   {
+    name: "AI & Machine Learning",
+    icon: <Brain size={36} />,
+    skills: [
+      "TensorFlow",
+      "PyTorch",
+      "scikit-learn",
+      "Neural Networks",
+      "Computer Vision",
+    ],
+    color: "accent",
+  },
+  {
+    name: "Data Science",
+    icon: <BarChart3 size={36} />,
+    skills: [
+      "Pandas",
+      "NumPy",
+      "Data Analysis",
+      "Data Visualization",
+      "Statistical Modeling",
+    ],
+    color: "primary",
+  },
+  {
     name: "Web Services",
     icon: <Globe size={36} />,
     skills: ["RESTful APIs", "GraphQL", "Authentication", "Cloud Services"],
@@ -63,6 +90,12 @@ const skillCategories = [
     icon: <GitBranch size={36} />,
     skills: ["Git", "GitHub", "CI/CD", "Code Reviews", "Branching Strategies"],
     color: "secondary",
+  },
+  {
+    name: "Cloud & Deployment",
+    icon: <Cloud size={36} />,
+    skills: ["AWS", "Docker", "CI/CD Pipelines", "Serverless", "Kubernetes"],
+    color: "accent",
   },
 ];
 

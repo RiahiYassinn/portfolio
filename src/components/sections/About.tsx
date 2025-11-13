@@ -9,9 +9,8 @@ const About: React.FC = () => {
     threshold: 0.1,
   });
 
-  // const profileImage =
-  //   "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/20201112_110705.jpg";
-  const profileImage = "src/assets/Image 25 juin 2025.png";
+  const profileImage =
+    "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Image 25 juin 2025.png";
 
   return (
     <section
@@ -32,26 +31,28 @@ const About: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="text-dark-400 dark:text-light-300 mb-4 leading-relaxed">
-              Hello! I'm a fourth-year software engineering student with a
-              passion for creating efficient, user-friendly applications. My
-              journey in programming began during high school when I first
-              learned about the power of code to solve real-world problems.
+              {" "}
+              Hello! I'm a final-year software engineering student, passionate
+              about crafting efficient and user-friendly applications. My
+              journey in programming started in high school, where I first
+              discovered the power of code to creatively solve real-world
+              problems.{" "}
             </p>
-
             <p className="text-dark-400 dark:text-light-300 mb-4 leading-relaxed">
-              Throughout my academic career, I've focused on developing a strong
-              foundation in computer science principles, software architecture,
-              and modern development practices. I enjoy working with both
-              frontend and backend technologies, with a particular interest in
-              web development and mobile applications.
+              {" "}
+              Throughout my academic journey, I've built a strong foundation in
+              computer science principles, software architecture, and modern
+              development practices. My primary focus lies at the intersection
+              of full-stack web development and artificial intelligence, where I
+              enjoy building intelligent systems and dynamic web experiences.{" "}
             </p>
-
             <p className="text-dark-400 dark:text-light-300 mb-6 leading-relaxed">
-              I'm currently seeking a summer internship where I can apply my
-              skills, learn from experienced professionals, and contribute to
-              meaningful projects. I'm particularly interested in opportunities
-              related to full-stack development, cloud computing, or mobile app
-              development.
+              {" "}
+              I am currently seeking a 6-month internship to complete my
+              studies, where I can apply my technical skills, learn from
+              seasoned professionals, and make a meaningful contribution to
+              impactful projects. I am particularly eager to find opportunities
+              in full-stack development or applied AI and machine learning.{" "}
             </p>
 
             <div className="mt-6">

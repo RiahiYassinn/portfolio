@@ -133,9 +133,9 @@ const Contact: React.FC = () => {
             </h3>
 
             <p className="text-dark-400 dark:text-light-300 mb-8 leading-relaxed">
-              I'm currently looking for summer internship opportunities for
-              2025. Whether you have a question or just want to say hi, I'll do
-              my best to get back to you as soon as possible!
+              I'm currently looking for internship opportunities for 2026.
+              Whether you have a question or just want to say hi, I'll do my
+              best to get back to you as soon as possible!
             </p>
 
             <div className="space-y-4 mb-8">
@@ -169,7 +169,7 @@ const Contact: React.FC = () => {
 
             <div className="p-6 bg-white dark:bg-dark-700 rounded-lg border border-light-300 dark:border-dark-400 shadow-md">
               <h4 className="text-lg font-semibold mb-2 text-primary-500 dark:text-light-100">
-                Looking for summer internship opportunities
+                Looking for internship opportunities
               </h4>
               <p className="text-dark-400 dark:text-light-300">
                 Available for software engineering roles starting June 2025.

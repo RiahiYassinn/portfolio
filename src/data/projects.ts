@@ -13,7 +13,7 @@ export const projectsData: IProject[] = [
     id: 1,
     title: "Food donation platform",
     description:
-      "A full-stack web application to reduce food waste by connecting donors, recipients, and volunteers, with integrated AI for food assessment, demand forecasting, Route Optimization , carbon impact estimation.",
+      "A full-stack web application to reduce food waste by connecting donors, recipients, and volunteers, with integrated AI for food assessment, demand forecasting, route optimization, and carbon impact estimation.",
     image:
       "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Capture%20d%27%C3%A9cran%202025-05-17%20155543.png",
     technologies: [
@@ -21,7 +21,7 @@ export const projectsData: IProject[] = [
       "Node.js",
       "Express",
       "MongoDB",
-      "Python ",
+      "Python",
       "Flask",
       "AI/ML",
       "JWT",
@@ -50,6 +50,27 @@ export const projectsData: IProject[] = [
       "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
     liveUrl:
       "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
+  },
+  {
+    id: 3,
+    title: "AI Agent for Product Analysis and Promotion",
+    description:
+      "An AI-driven platform that analyzes product performance in real time, detects underperforming items, and automatically generates personalized promotional campaigns or bundling strategies. Integrated with Magento for live data, and powered by Mastra AI for smart decision-making.",
+    image:
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/ai-agent-retail-promo.png",
+    technologies: [
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "PostgreSQL",
+      "Prisma",
+      "Docker",
+      "Magento API",
+      "Mastra AI",
+      "Machine Learning",
+    ],
+    githubUrl: "https://github.com/RiahiYassinn/AI-Agent-Product-Analysis-Promotion",
+    liveUrl: "https://github.com/RiahiYassinn/AI-Agent-Product-Analysis-Promotion",
   },
   {
     id: 4,
