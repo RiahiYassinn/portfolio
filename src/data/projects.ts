@@ -30,26 +30,22 @@ export const projectsData: IProject[] = [
     githubUrl: "https://github.com/vvebwizards/Web-Wizards-SustainaFood",
     liveUrl: "https://github.com/vvebwizards/Web-Wizards-SustainaFood",
   },
-  {
+    {
     id: 2,
-    title: "Bank: Management of prepaid card requests",
+    title: "Waste2Product",
     description:
-      "A full-stack banking application for managing prepaid card requests with user authentication, request tracking, and admin validation workflows.",
+      "A Laravel-based circular economy platform that connects waste generators with makers and repairers to upcycle materials through a reverse marketplace, enhanced with AI-powered waste classification and impact analysis.",
     image:
-      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Prepaid-Credit-Card.jpg",
+      "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     technologies: [
-      "Angular",
-      ".Net Core",
-      "C#",
-      "Entity Framework",
-      "SQL Server",
-      "JWT",
-      "Bootstrap",
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "AI/ML",
+      "REST API",
+      "Blade",
+      "Tailwind CSS",
     ],
-    githubUrl:
-      "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
-    liveUrl:
-      "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
   },
   {
     id: 3,
@@ -102,4 +98,26 @@ export const projectsData: IProject[] = [
     githubUrl: "https://github.com/RiahiYassinn/E-Commerce-Platform",
     liveUrl: "https://github.com/RiahiYassinn/E-Commerce-Platform",
   },
+  {
+    id: 6,
+    title: "Bank: Management of prepaid card requests",
+    description:
+      "A full-stack banking application for managing prepaid card requests with user authentication, request tracking, and admin validation workflows.",
+    image:
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Prepaid-Credit-Card.jpg",
+    technologies: [
+      "Angular",
+      ".Net Core",
+      "C#",
+      "Entity Framework",
+      "SQL Server",
+      "JWT",
+      "Bootstrap",
+    ],
+    githubUrl:
+      "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
+    liveUrl:
+      "https://github.com/RiahiYassinn/yassiinz-Asp.Net-Core-Web-API-DigiCard-Operations-with-Angular-16",
+  },
+
 ];

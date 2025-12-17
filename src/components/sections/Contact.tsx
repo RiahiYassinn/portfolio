@@ -172,7 +172,7 @@ const Contact: React.FC = () => {
                 Looking for internship opportunities
               </h4>
               <p className="text-dark-400 dark:text-light-300">
-                Available for software engineering roles starting June 2025.
+                Available for software engineering roles starting June 2026.
                 Open to remote, hybrid, or on-site positions.
               </p>
             </div>
