@@ -1,102 +1,73 @@
-import React from "react";
+import type { FC } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import profileImage from "../../assets/Gemini_Generated_Image_5d4daq5d4daq5d4d (1).jpg";
 import SectionHeader from "../ui/SectionHeader";
 
-const About: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+const focusAreas = [
+  "Full-stack development",
+  "Applied AI",
+  "Software architecture",
+  "Event-driven systems",
+];
 
-  const profileImage =
-    "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Image 25 juin 2025.png";
+const About: FC = () => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.12 });
 
   return (
-    <section
-      id="about"
-      className="py-20 bg-light-100 dark:bg-dark-500 relative"
-    >
+    <section id="about" className="relative bg-light-100 py-20 dark:bg-dark-700 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
-        <SectionHeader title="About Me" subtitle="Get to know me better" />
+        <SectionHeader title="About Me" subtitle="Engineer by training, curious by nature." />
 
-        <div
-          ref={ref}
-          className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"
-        >
+        <div ref={ref} className="mx-auto mt-14 grid max-w-5xl items-center gap-12 lg:grid-cols-[.82fr_1.18fr] lg:gap-16">
           <motion.div
-            className="lg:col-span-3 order-2 lg:order-1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative mx-auto w-full max-w-sm"
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: 0.55 }}
           >
-            <p className="text-dark-400 dark:text-light-300 mb-4 leading-relaxed">
-              {" "}
-              Hello! I'm a final-year software engineering student, passionate
-              about crafting efficient and user-friendly applications. My
-              journey in programming started in high school, where I first
-              discovered the power of code to creatively solve real-world
-              problems.{" "}
-            </p>
-            <p className="text-dark-400 dark:text-light-300 mb-4 leading-relaxed">
-              {" "}
-              Throughout my academic journey, I've built a strong foundation in
-              computer science principles, software architecture, and modern
-              development practices. My primary focus lies at the intersection
-              of full-stack web development and artificial intelligence, where I
-              enjoy building intelligent systems and dynamic web experiences.{" "}
-            </p>
-            <p className="text-dark-400 dark:text-light-300 mb-6 leading-relaxed">
-              {" "}
-              I am currently seeking a 6-month internship to complete my
-              studies, where I can apply my technical skills, learn from
-              seasoned professionals, and make a meaningful contribution to
-              impactful projects. I am particularly eager to find opportunities
-              in full-stack development or applied AI and machine learning.{" "}
-            </p>
-
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold text-primary-500 dark:text-accent-500 mb-3">
-                Some technologies I've been working with:
-              </h3>
-              <ul className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {[
-                  "JavaScript",
-                  "TypeScript",
-                  "React",
-                  "Node.js",
-                  "Python",
-                  "Java",
-                  "SQL",
-                  "Git",
-                  "Docker",
-                ].map((tech) => (
-                  <li
-                    key={tech}
-                    className="flex items-center text-dark-400 dark:text-light-300"
-                  >
-                    <span className="text-accent-500 mr-2">▹</span> {tech}
-                  </li>
-                ))}
-              </ul>
+            <div aria-hidden="true" className="absolute -inset-3 rotate-3 rounded-[2rem] border border-accent-300/70 dark:border-accent-700/70" />
+            <div className="relative overflow-hidden rounded-[1.8rem] border border-light-600 bg-light-300 shadow-xl shadow-dark-900/10 dark:border-dark-400 dark:bg-dark-600">
+              <img
+                src={profileImage}
+                alt="Portrait of Yassine Riahi"
+                className="aspect-[4/5] w-full object-cover object-top"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark-900/80 via-dark-900/25 to-transparent p-5 pt-16">
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent-300">Computer Science Engineer</p>
+                <p className="mt-1 text-lg font-semibold text-white">Yassine Riahi</p>
+              </div>
             </div>
           </motion.div>
 
           <motion.div
-            className="lg:col-span-2 order-1 lg:order-2 flex justify-center"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={
-              inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
-            }
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: 0.55, delay: 0.12 }}
           >
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-lg">
-              <div className="absolute inset-0 rounded-lg border-2 border-accent-500 transform translate-x-4 translate-y-4 z-0" />
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="w-full h-full object-cover rounded-lg relative z-10 shadow-xl"
-              />
+            <p className="font-mono text-sm tracking-wide text-primary-600 dark:text-primary-300">A little about how I work</p>
+            <h3 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-dark-800 dark:text-light-100 sm:text-4xl">
+              From a solid foundation to software people can use.
+            </h3>
+            <p className="mt-5 leading-7 text-dark-400 dark:text-light-300">
+              I’m a Computer Science Engineer and recent graduate interested in building useful products across full-stack web development and applied AI. I enjoy working through a problem from its interface and API to the data and services behind it.
+            </p>
+            <p className="mt-4 leading-7 text-dark-400 dark:text-light-300">
+              My End-of-Studies Project, <span className="font-semibold text-dark-700 dark:text-light-100">Dev.Lab</span>, brings these interests together through AI-powered features, retrieval-augmented generation, and an event-driven microservices architecture.
+            </p>
+
+            <div className="mt-8 border-t border-light-600 pt-6 dark:border-dark-400">
+              <h4 className="text-sm font-semibold uppercase tracking-[0.12em] text-dark-500 dark:text-light-200">Areas I focus on</h4>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {focusAreas.map((area) => (
+                  <li key={area} className="flex items-center gap-3 text-sm text-dark-400 dark:text-light-300">
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-500" />
+                    {area}
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         </div>

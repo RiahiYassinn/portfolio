@@ -1,138 +1,66 @@
-import React from "react";
+import { Brain, Code2, Database, Layers3, Server, Workflow } from "lucide-react";
+import type { FC } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import SectionHeader from "../ui/SectionHeader";
 import SkillCard from "../ui/SkillCard";
-import {
-  Code,
-  Database,
-  Globe,
-  Layout,
-  Server,
-  Smartphone,
-  Terminal,
-  GitBranch,
-  Brain,
-  BarChart3,
-  Cloud,
-} from "lucide-react";
 
-// Skill categories with associated technologies
 const skillCategories = [
   {
     name: "Frontend",
-    icon: <Layout size={36} />,
-    skills: [
-      "React",
-      "HTML/CSS",
-      "JavaScript",
-      "TypeScript",
-      "Responsive Design",
-    ],
+    icon: <Code2 size={24} strokeWidth={1.8} />,
+    skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
     color: "primary",
   },
   {
     name: "Backend",
-    icon: <Server size={36} />,
-    skills: ["Node.js", "Express", "RESTful APIs", "Python", "Java"],
+    icon: <Server size={24} strokeWidth={1.8} />,
+    skills: ["NestJS", "FastAPI", "Node.js", "Express", "REST APIs"],
     color: "secondary",
   },
   {
-    name: "Database",
-    icon: <Database size={36} />,
-    skills: ["SQL", "MongoDB", "PostgreSQL", "Database Design", "ORM"],
+    name: "Architecture & AI",
+    icon: <Brain size={24} strokeWidth={1.8} />,
+    skills: ["Event-driven microservices", "Kafka", "RAG", "AI-powered features"],
+    color: "accent",
+  },
+  {
+    name: "Data",
+    icon: <Database size={24} strokeWidth={1.8} />,
+    skills: ["PostgreSQL", "MongoDB", "MySQL", "SQL", "Database design"],
     color: "primary",
   },
   {
     name: "Programming",
-    icon: <Code size={36} />,
-    skills: ["JavaScript", "TypeScript", "Python", "Java", "C++"],
+    icon: <Layers3 size={24} strokeWidth={1.8} />,
+    skills: ["TypeScript", "JavaScript", "Python", "Java", "C#"],
     color: "secondary",
   },
   {
-    name: "AI & Machine Learning",
-    icon: <Brain size={36} />,
-    skills: [
-      "TensorFlow",
-      "PyTorch",
-      "scikit-learn",
-      "Neural Networks",
-      "Computer Vision",
-    ],
-    color: "accent",
-  },
-  {
-    name: "Data Science",
-    icon: <BarChart3 size={36} />,
-    skills: [
-      "Pandas",
-      "NumPy",
-      "Data Analysis",
-      "Data Visualization",
-      "Statistical Modeling",
-    ],
-    color: "primary",
-  },
-  {
-    name: "Web Services",
-    icon: <Globe size={36} />,
-    skills: ["RESTful APIs", "GraphQL", "Authentication", "Cloud Services"],
-    color: "accent",
-  },
-  {
-    name: "Development Tools",
-    icon: <Terminal size={36} />,
-    skills: ["VS Code", "CLI", "Webpack", "npm/yarn", "Docker"],
-    color: "primary",
-  },
-  {
-    name: "Version Control",
-    icon: <GitBranch size={36} />,
-    skills: ["Git", "GitHub", "CI/CD", "Code Reviews", "Branching Strategies"],
-    color: "secondary",
-  },
-  {
-    name: "Cloud & Deployment",
-    icon: <Cloud size={36} />,
-    skills: ["AWS", "Docker", "CI/CD Pipelines", "Serverless", "Kubernetes"],
+    name: "Tools & Workflow",
+    icon: <Workflow size={24} strokeWidth={1.8} />,
+    skills: ["Git", "GitHub", "Docker", "CI/CD", "CLI"],
     color: "accent",
   },
 ];
 
-const Skills: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+const Skills: FC = () => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section
-      id="skills"
-      className="py-20 bg-light-500 dark:bg-dark-600 relative"
-    >
+    <section id="skills" className="bg-light-300 py-20 dark:bg-dark-800 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
-        <SectionHeader
-          title="Skills & Expertise"
-          subtitle="Technologies I've been working with"
-        />
+        <SectionHeader title="Skills & Expertise" subtitle="Tools and concepts represented in my work." />
 
         <motion.div
           ref={ref}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
+          className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+          }}
         >
           {skillCategories.map((category, index) => (
             <SkillCard
@@ -141,7 +69,7 @@ const Skills: React.FC = () => {
               icon={category.icon}
               skills={category.skills}
               colorScheme={category.color as "primary" | "secondary" | "accent"}
-              delay={index * 0.1}
+              delay={index * 0.04}
             />
           ))}
         </motion.div>

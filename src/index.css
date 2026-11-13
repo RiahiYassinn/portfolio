@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-light-500 font-sans text-dark-800 antialiased dark:bg-dark-800 dark:text-light-200;
+    font-feature-settings: "ss01" on, "cv11" on;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-900 dark:bg-primary-700 dark:text-light-100;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-light-500 dark:ring-offset-dark-800;
+  }
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+* {
+  scrollbar-color: theme("colors.primary.300") transparent;
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
