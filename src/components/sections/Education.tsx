@@ -51,7 +51,7 @@ const Education: FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section id="education" className="bg-light-100 py-20 dark:bg-dark-700 md:py-28">
+    <section id="education" className="bg-light-100/70 py-20 dark:bg-dark-700/65 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader title="Education" subtitle="Academic background and selected credentials." />
 

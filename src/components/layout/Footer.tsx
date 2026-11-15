@@ -1,7 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => (
-  <footer className="border-t border-light-600 bg-light-100 py-7 dark:border-dark-400 dark:bg-dark-800">
+  <footer className="border-t border-light-600 bg-light-100/80 py-7 dark:border-dark-400 dark:bg-dark-800/80">
     <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
       <div>
         <p className="text-sm font-medium text-dark-500 dark:text-light-200">© {new Date().getFullYear()} Yassine Riahi</p>

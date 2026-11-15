@@ -15,7 +15,7 @@ const About: FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.12 });
 
   return (
-    <section id="about" className="relative bg-light-100 py-20 dark:bg-dark-700 md:py-28">
+    <section id="about" className="relative bg-light-100/70 py-20 dark:bg-dark-700/65 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader title="About Me" subtitle="Engineer by training, curious by nature." />
 

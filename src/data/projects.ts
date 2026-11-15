@@ -6,9 +6,30 @@ export interface IProject {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
+  isFeatured?: boolean; // Optional flag to identify Dev.Lab's custom WarpCarousel view
 }
 
 export const projectsData: IProject[] = [
+  {
+    id: 0,
+    title: "Dev.Lab",
+    description:
+      "An AI-powered end-of-studies project built around an event-driven microservices architecture. Dev.Lab combines retrieval-augmented generation with a full-stack system spanning web, services, messaging, and data technologies.",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80", // Fallback thumbnail for the bottom horizontal list
+    technologies: [
+      "Next.js",
+      "NestJS",
+      "FastAPI",
+      "Kafka",
+      "PostgreSQL",
+      "MongoDB",
+      "RAG",
+      "Docker",
+    ],
+    githubUrl: "https://github.com/RiahiYassinn", // Update if you have a specific repo link
+    isFeatured: true,
+  },
   {
     id: 1,
     title: "Food donation platform",
@@ -64,7 +85,8 @@ export const projectsData: IProject[] = [
       "Mastra AI",
       "Machine Learning",
     ],
-    githubUrl: "https://github.com/RiahiYassinn/AI-Agent-Product-Analysis-Promotion",
+    githubUrl:
+      "https://github.com/RiahiYassinn/AI-Agent-Product-Analysis-Promotion",
   },
   {
     id: 4,

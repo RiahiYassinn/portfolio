@@ -8,6 +8,7 @@ import Skills from "./components/sections/Skills";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Education from "./components/sections/Education";
+import AnimatedShaderBackground from "./components/ui/animated-shader-background";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -35,17 +36,20 @@ function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col">
-        <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <main className="flex-grow">
-          <Hero />
-          <About />
-          <Skills />
-          <Education />
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
+      <div className="relative isolate flex min-h-screen flex-col">
+        <AnimatedShaderBackground />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          <main className="flex-grow">
+            <Hero />
+            <About />
+            <Skills />
+            <Education />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
       </div>
     </MotionConfig>
   );

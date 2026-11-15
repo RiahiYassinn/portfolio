@@ -45,7 +45,7 @@ const Contact: FC = () => {
   };
 
   return (
-    <section id="contact" className="bg-light-500 py-20 dark:bg-dark-800 md:py-28">
+    <section id="contact" className="bg-light-500/70 py-20 dark:bg-dark-800/65 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader title="Get in Touch" subtitle="Have a project or an idea to discuss? I’d be glad to hear from you." />
 
