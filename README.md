@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-The Vite development plugin serves `/api/chat` and `/api/speech` locally. Copy
+The Vite development plugin serves `/api/chat`, `/api/speech`, and `/api/match` locally. Copy
 `.env.example` to `.env.local` and set the Gemini, Groq, and
 ElevenLabs credentials. Keep API keys server-side; never prefix them with
 `VITE_`.

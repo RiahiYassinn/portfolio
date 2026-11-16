@@ -14,9 +14,9 @@ export const projectsData: IProject[] = [
     id: 0,
     title: "Dev.Lab",
     description:
-      "An AI-powered end-of-studies project built around an event-driven microservices architecture. Dev.Lab combines retrieval-augmented generation with a full-stack system spanning web, services, messaging, and data technologies.",
+      "Eliminates generic developer upskilling by analyzing real GitHub commit history to uncover skill gaps. Built on an event-driven microservices architecture, it uses RAG pipelines to generate tailored learning paths, validate skills via automated quizzes, and streamline 1-on-1 mentorship booking.",
     image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80", // Fallback thumbnail for the bottom horizontal list
+      "src/assets/cyber-security-expert-working-with-technology-neon-lights_23-2151645607.avif", // Fallback thumbnail for the bottom horizontal list
     technologies: [
       "Next.js",
       "NestJS",
@@ -32,48 +32,11 @@ export const projectsData: IProject[] = [
   },
   {
     id: 1,
-    title: "Food donation platform",
-    description:
-      "A full-stack food donation platform connecting donors, recipients, and volunteers. Its feature set includes AI-assisted food assessment, demand forecasting, route optimization, and carbon impact estimation.",
-    image:
-      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Capture%20d%27%C3%A9cran%202025-05-17%20155543.png",
-    technologies: [
-      "React",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Python",
-      "Flask",
-      "AI/ML",
-      "JWT",
-      "WebSockets",
-    ],
-    githubUrl: "https://github.com/vvebwizards/Web-Wizards-SustainaFood",
-  },
-  {
-    id: 2,
-    title: "Waste2Product",
-    description:
-      "A Laravel reverse marketplace connecting waste generators with makers and repairers. The platform supports material reuse with AI-powered waste classification and impact analysis.",
-    image:
-      "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    technologies: [
-      "Laravel",
-      "PHP",
-      "MySQL",
-      "AI/ML",
-      "REST API",
-      "Blade",
-      "Tailwind CSS",
-    ],
-  },
-  {
-    id: 3,
     title: "AI Agent for Product Analysis and Promotion",
     description:
-      "An AI-driven product analysis tool that connects to Magento data, identifies underperforming products, and generates promotional or bundling suggestions. Built with Mastra AI and a PostgreSQL-backed application stack.",
+      "Solves slow manual catalog audits and stagnant e-commerce inventory by autonomously analyzing Magento store data. It pinpoints underperforming SKUs and generates data-backed discounting and product-bundling strategies to accelerate stock turnover and boost conversion rates.",
     image:
-      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/Analytics.png",
+      "src/assets/variety-people-multitasking-3d-cartoon-scene_23-2151294550.avif",
     technologies: [
       "TypeScript",
       "Next.js",
@@ -89,10 +52,47 @@ export const projectsData: IProject[] = [
       "https://github.com/RiahiYassinn/AI-Agent-Product-Analysis-Promotion",
   },
   {
+    id: 2,
+    title: "SustainaFood",
+    description:
+      "Bridges the logistics gap between surplus food donors, charities, and volunteers to reduce preventable food waste. Combines AI food quality assessment, demand forecasting, real-time pickup route optimization, and carbon-offset tracking to get perishable food delivered before spoilage.",
+    image:
+      "src/assets/istockphoto-1094461256-612x612.jpg",
+    technologies: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Python",
+      "Flask",
+      "AI/ML",
+      "JWT",
+      "WebSockets",
+    ],
+    githubUrl: "https://github.com/vvebwizards/Web-Wizards-SustainaFood",
+  },
+  {
+    id: 3,
+    title: "Waste2Product",
+    description:
+      "Diverts reusable industrial and household materials from landfills by connecting waste generators directly with local makers and repairers. Uses AI image classification to categorize discarded materials and quantify environmental savings per transaction.",
+    image:
+      "src/assets/waste-management-concept-illustration_114360-8685.avif",
+    technologies: [
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "AI/ML",
+      "REST API",
+      "Blade",
+      "Tailwind CSS",
+    ],
+  },
+  {
     id: 4,
     title: "Sotacib Commercial",
     description:
-      "A mobile application for SOTACIB’s commercial team to manage client visits and track points of sale, using map-based location views.",
+      "Replaces manual paper tracking for SOTACIB’s field sales reps with a cross-platform mobile tool. Provides interactive map-based point-of-sale visualization and visit logging, improving territory coverage, route planning, and field reporting accuracy.",
     image:
       "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/portrait-de-l-homme-d-affaires-gestionnaire-d-age-moyen-reussi-tenant-une-tablette-dans-un-grand-entrepot-organisant-la-distribution.jpg",
     technologies: [
@@ -110,7 +110,7 @@ export const projectsData: IProject[] = [
     id: 5,
     title: "E-Commerce Platform",
     description:
-      "A full-stack e-commerce application covering product listings, a shopping cart, user authentication, and Stripe payment processing.",
+      "Delivers an end-to-end digital storefront engineered to eliminate checkout friction and manual order handling. Integrates real-time cart state management, role-based authentication, and secure Stripe payment webhooks for automated order fulfillment.",
     image:
       "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
@@ -120,7 +120,7 @@ export const projectsData: IProject[] = [
     id: 6,
     title: "Bank: Management of prepaid card requests",
     description:
-      "A banking workflow application for prepaid card requests, with JWT authentication, request tracking, and an administrator validation flow.",
+      "Digitizes bottlenecked branch-level prepaid card applications into an auditable self-service banking workflow. Automates request submission, real-time status tracking, and role-based admin validation to cut processing turnaround times.",
     image:
       "https://raw.githubusercontent.com/RiahiYassinn/portfolio/main/src/assets/Prepaid-Credit-Card.jpg",
     technologies: [

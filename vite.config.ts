@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react';
 import chatHandler from './api/chat.js';
 // @ts-expect-error JavaScript handlers are shared with Netlify Functions.
 import speechHandler from './api/speech.js';
+// @ts-expect-error JavaScript handlers are shared with Netlify Functions.
+import matchHandler from './api/match.js';
 
 function localApiPlugin(): Plugin {
   return {
@@ -14,6 +16,9 @@ function localApiPlugin(): Plugin {
       });
       server.middlewares.use('/api/speech', (req, res) => {
         void speechHandler(req, res);
+      });
+      server.middlewares.use('/api/match', (req, res) => {
+        void matchHandler(req, res);
       });
     },
   };

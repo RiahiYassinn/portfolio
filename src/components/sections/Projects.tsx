@@ -1,17 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { FC } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  Github,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
 import { projectsData } from "../../data/projects";
 
-// Visual themes matching the WarpCarousel mesh & glow aesthetic for each project
 const cardThemes = [
   {
     badge: "01 / FLAGSHIP",
@@ -22,7 +15,15 @@ const cardThemes = [
     border: "border-cyan-400/30",
   },
   {
-    badge: "02 / AI & FULL-STACK",
+    badge: "02 / AI AGENT",
+    accent: "#ffc58e",
+    glow: "rgba(217, 120, 80, 0.25)",
+    gradient:
+      "radial-gradient(circle at 85% 15%, #c26a39 0%, #30192a 45%, #1f1738 100%)",
+    border: "border-orange-400/30",
+  },
+  {
+    badge: "03 / AI & FULL-STACK",
     accent: "#8ef4d1",
     glow: "rgba(34, 168, 139, 0.25)",
     gradient:
@@ -30,20 +31,12 @@ const cardThemes = [
     border: "border-emerald-400/30",
   },
   {
-    badge: "03 / MARKETPLACE",
+    badge: "04 / MARKETPLACE",
     accent: "#d1a8ff",
     glow: "rgba(132, 87, 212, 0.25)",
     gradient:
       "radial-gradient(circle at 85% 15%, #7440a8 0%, #23123e 45%, #100d29 100%)",
     border: "border-purple-400/30",
-  },
-  {
-    badge: "04 / AI AGENT",
-    accent: "#ffc58e",
-    glow: "rgba(217, 120, 80, 0.25)",
-    gradient:
-      "radial-gradient(circle at 85% 15%, #c26a39 0%, #30192a 45%, #1f1738 100%)",
-    border: "border-orange-400/30",
   },
   {
     badge: "05 / MOBILE & MAPS",
@@ -73,6 +66,7 @@ const cardThemes = [
 
 const Projects: FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollToProject = (index: number) => {
@@ -94,6 +88,17 @@ const Projects: FC = () => {
       }
     }
   };
+
+  // Auto-play effect: cycles every 3 seconds unless paused
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      scrollToProject(activeIndex + 1);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, [activeIndex, isPaused]);
 
   // Update activeIndex on manual horizontal scroll
   const handleScroll = () => {
@@ -154,10 +159,12 @@ const Projects: FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Warp-Style Card Track */}
+      {/* Horizontal Card Track with Hover Pause */}
       <div
         ref={carouselRef}
         onScroll={handleScroll}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
         className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-[7.5vw] pb-10 pt-4 no-scrollbar md:px-[15vw] lg:px-[22vw]"
       >
         {projectsData.map((project, index) => {
@@ -180,7 +187,7 @@ const Projects: FC = () => {
                   ? `0 25px 60px -15px ${theme.glow}`
                   : "none",
               }}
-              className={`relative flex w-[85vw] max-w-[780px] flex-shrink-0 cursor-pointer snap-center flex-col justify-between overflow-hidden rounded-[2rem] border ${theme.border} p-6 text-white transition-colors sm:p-8 lg:min-h-[460px] lg:flex-row lg:gap-8 lg:p-10`}
+              className={`relative flex w-[85vw] max-w-[780px] flex-shrink-0 cursor-pointer snap-center flex-col justify-between overflow-hidden rounded-[2rem] border ${theme.border} p-6 text-white transition-colors sm:p-8 lg:flex-row lg:items-center lg:gap-8 lg:p-10`}
             >
               {/* Subtle ambient mesh glow */}
               <div
@@ -190,87 +197,47 @@ const Projects: FC = () => {
               />
 
               {/* Left Column: All Project Info */}
-              <div className="flex flex-1 flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      style={{ color: theme.accent }}
-                      className="font-mono text-xs font-semibold uppercase tracking-[0.2em]"
-                    >
-                      {theme.badge}
-                    </span>
-                    <span className="font-mono text-xs text-white/40">
-                      #{String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-                    {project.title}
-                    <span style={{ color: theme.accent }}>.</span>
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-relaxed text-light-100/90 sm:text-base">
-                    {project.description}
-                  </p>
-
-                  {/* Full Tech Stack Pills */}
-                  <ul
-                    className="mt-6 flex flex-wrap gap-1.5"
-                    aria-label={`${project.title} technologies`}
+              <div className="flex flex-1 flex-col justify-center">
+                <div className="flex items-center justify-between gap-2">
+                  <span
+                    style={{ color: theme.accent }}
+                    className="font-mono text-xs font-semibold uppercase tracking-[0.2em]"
                   >
-                    {project.technologies.map((tech) => (
-                      <li
-                        key={tech}
-                        className="rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
+                    {theme.badge}
+                  </span>
+                  <span className="font-mono text-xs text-white/40">
+                    #{String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
-                {/* Action Links */}
-                <div className="mt-8 flex flex-wrap items-center gap-5 pt-4 border-t border-white/10">
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{ color: theme.accent }}
-                      className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80"
+                <h3 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+                  {project.title}
+                  <span style={{ color: theme.accent }}>.</span>
+                </h3>
+
+                <p className="mt-4 text-sm leading-relaxed text-light-100/90 sm:text-base">
+                  {project.description}
+                </p>
+
+                {/* Full Tech Stack Pills */}
+                <ul
+                  className="mt-6 flex flex-wrap gap-1.5"
+                  aria-label={`${project.title} technologies`}
+                >
+                  {project.technologies.map((tech) => (
+                    <li
+                      key={tech}
+                      className="rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
                     >
-                      <Github size={16} /> Source Code
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{ color: theme.accent }}
-                      className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80"
-                    >
-                      <ExternalLink size={16} /> Live Demo
-                    </a>
-                  )}
-                  {/* {project.id === 0 && (
-                    <a
-                      href="#contact"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{ color: theme.accent }}
-                      className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80"
-                    >
-                      Ask me about Dev.Lab <ArrowRight size={16} />
-                    </a>
-                  )} */}
-                </div>
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Right Column: Visual Preview Card */}
-              <div className="mt-6 flex flex-col justify-between lg:mt-0 lg:w-[42%]">
-                <div className="relative h-48 w-full overflow-hidden rounded-2xl border border-white/15 bg-black/30 sm:h-56 lg:h-full">
+              <div className="mt-6 flex flex-col justify-center lg:mt-0 lg:w-[42%]">
+                <div className="relative h-48 w-full overflow-hidden rounded-2xl border border-white/15 bg-black/30 sm:h-56 lg:h-[320px]">
                   <img
                     src={project.image}
                     alt={project.title}
