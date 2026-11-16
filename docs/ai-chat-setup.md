@@ -17,10 +17,11 @@ and `ELEVENLABS_API_KEY`. Do not rename them to `VITE_*` variables.
 Start Vite with `npm run dev`. The plugin in `vite.config.ts` loads server-only
 variables from `.env.local` for local API requests.
 
-## Netlify production setup
+## Vercel production setup
 
-The included `netlify.toml` configures the Vite build, Netlify Functions, API
-rewrites, and SPA fallback. Add `GEMINI_API_KEY`, `GROQ_API_KEY`, and
-`ELEVENLABS_API_KEY` in the Netlify site's environment variables, then
-redeploy. Optional model overrides include `GEMINI_MODEL`, `GROQ_MODEL`, and
-`ELEVENLABS_MODEL` (default `eleven_flash_v2_5`).
+Vercel deploys the handlers in the root `api/` directory as serverless
+functions. `vercel.json` configures the Vite build, SPA fallback, and longer
+timeouts for the AI chat and job match endpoints. Add `GEMINI_API_KEY`,
+`GROQ_API_KEY`, and `ELEVENLABS_API_KEY` to the Vercel project's environment
+variables, then redeploy. Optional model overrides include `GEMINI_MODEL`,
+`GROQ_MODEL`, and `ELEVENLABS_MODEL` (default `eleven_flash_v2_5`).

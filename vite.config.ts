@@ -1,10 +1,10 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
-// @ts-expect-error JavaScript handlers are shared with Netlify Functions.
+// @ts-expect-error JavaScript API handlers are shared with the local dev server.
 import chatHandler from './api/chat.js';
-// @ts-expect-error JavaScript handlers are shared with Netlify Functions.
+// @ts-expect-error JavaScript API handlers are shared with the local dev server.
 import speechHandler from './api/speech.js';
-// @ts-expect-error JavaScript handlers are shared with Netlify Functions.
+// @ts-expect-error JavaScript API handlers are shared with the local dev server.
 import matchHandler from './api/match.js';
 
 function localApiPlugin(): Plugin {

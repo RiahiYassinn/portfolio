@@ -22,10 +22,10 @@ Answers are grounded in the portfolio context in
 fixed Harry – Fierce Warrior English voice. The ElevenLabs key never reaches
 the browser.
 
-## Deploy to Netlify
+## Deploy to Vercel
 
-The included `netlify.toml` builds the Vite site, routes `/api/*` to Netlify
-Functions, and configures the SPA fallback. Set `GEMINI_API_KEY`,
-`GROQ_API_KEY`, and `ELEVENLABS_API_KEY` in the Netlify site's environment
-variables, then redeploy. Optional model and voice overrides are listed in
-`.env.example`.
+Import the repository into Vercel. The included `vercel.json` configures the
+Vite build, SPA fallback, and function duration. The root `api/` directory is
+deployed as Vercel Functions. Add `GEMINI_API_KEY`, `GROQ_API_KEY`, and
+`ELEVENLABS_API_KEY` to the Vercel project's environment variables, then
+redeploy. Optional model and voice overrides are listed in `.env.example`.

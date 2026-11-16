@@ -10,6 +10,7 @@ import Contact from "./components/sections/Contact";
 import Education from "./components/sections/Education";
 import AnimatedShaderBackground from "./components/ui/animated-shader-background";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -52,6 +53,7 @@ function App() {
             </main>
             <Footer />
           </div>
+          <Analytics />
         </div>
       </LanguageProvider>
     </MotionConfig>
