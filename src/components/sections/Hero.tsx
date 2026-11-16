@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Button from "../ui/Button";
 import GuideCharacter from "../chat/GuideCharacter";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 interface Message {
   id: number;
@@ -65,13 +66,6 @@ interface JobMatchModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const RECRUITER_SUGGESTIONS = [
-  "Tell me about Dev.Lab & its microservices architecture",
-  "What is your tech stack (Backend, Frontend, AI)?",
-  "How do you handle CI/CD and testing?",
-  "Are you open to remote or international roles?",
-];
 
 // Helper to parse markdown formatting from the AI response into structured JSX elements
 const renderFormattedMessage = (text: string) => {
@@ -120,6 +114,7 @@ const renderFormattedMessage = (text: string) => {
 };
 
 const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
+  const { t, language } = useLanguage();
   const [jd, setJd] = useState("");
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<MatchReport | null>(null);
@@ -137,7 +132,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
       const res = await fetch("/api/match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ jobDescription: jd }),
+        body: JSON.stringify({ jobDescription: jd, language }),
       });
       const data = await res.json().catch(() => null);
       if (!res.ok || !data) {
@@ -145,7 +140,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
       }
       setReport(data.report);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message : t("match.error"));
     } finally {
       setLoading(false);
     }
@@ -164,7 +159,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
         >
           <button
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label={t("match.close")}
             className="absolute right-5 top-5 rounded-full p-2 text-dark-400 transition hover:bg-light-300 dark:text-light-300 dark:hover:bg-dark-600"
           >
             <X size={20} />
@@ -176,11 +171,10 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 className="text-xl font-bold text-dark-800 dark:text-light-100">
-                Recruiter JD Fit Evaluator
+                {t("match.title")}
               </h2>
               <p className="text-xs text-dark-300 dark:text-light-400">
-                Paste a job description to instantly analyze Yassine’s technical
-                fit & alignment.
+                {t("match.subtitle")}
               </p>
             </div>
           </div>
@@ -189,13 +183,13 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
             <form onSubmit={handleMatch} className="space-y-4">
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-dark-500 dark:text-light-300">
-                  Job Description / Requirements
+                  {t("match.label")}
                 </label>
                 <textarea
                   value={jd}
                   onChange={(e) => setJd(e.target.value)}
                   rows={6}
-                  placeholder="Paste the job description here (e.g., Looking for a Backend Engineer with NestJS, Kafka, Docker experience...)"
+                  placeholder={t("match.placeholder")}
                   className="w-full rounded-2xl border border-light-600 bg-white p-4 text-sm text-dark-800 outline-none transition focus:ring-2 focus:ring-primary-500 dark:border-dark-400 dark:bg-dark-600 dark:text-light-100"
                 />
               </div>
@@ -208,7 +202,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 
               <div className="flex justify-end gap-3 pt-2">
                 <Button type="button" variant="outline" onClick={onClose}>
-                  Cancel
+                  {t("match.cancel")}
                 </Button>
                 <Button
                   type="submit"
@@ -217,11 +211,10 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
                 >
                   {loading ? (
                     <>
-                      <Loader2 size={16} className="animate-spin" /> Analyzing
-                      Fit...
+                      <Loader2 size={16} className="animate-spin" /> {t("match.loading")}
                     </>
                   ) : (
-                    <>Generate Match Report</>
+                    <>{t("match.submit")}</>
                   )}
                 </Button>
               </div>
@@ -231,7 +224,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary-200 bg-primary-50/50 p-5 dark:border-primary-800 dark:bg-primary-950/30">
                 <div>
                   <span className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400">
-                    Evaluated Role
+                    {t("match.role")}
                   </span>
                   <h3 className="text-lg font-bold text-dark-800 dark:text-light-100">
                     {report.roleTitle}
@@ -248,7 +241,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 
               <div>
                 <h4 className="mb-1 text-xs font-semibold uppercase tracking-wider text-dark-400 dark:text-light-400">
-                  Executive Assessment
+                  {t("match.assessment")}
                 </h4>
                 <p className="text-sm leading-relaxed text-dark-600 dark:text-light-200">
                   {report.summary}
@@ -258,7 +251,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-light-600 bg-white p-4 dark:border-dark-400 dark:bg-dark-600">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                    <CheckCircle2 size={15} /> Matching Skills
+                    <CheckCircle2 size={15} /> {t("match.skills")}
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {report.matchingSkills.map((skill, i) => (
@@ -274,7 +267,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 
                 <div className="rounded-2xl border border-light-600 bg-white p-4 dark:border-dark-400 dark:bg-dark-600">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                    <AlertCircle size={15} /> Growth Areas / Gaps
+                    <AlertCircle size={15} /> {t("match.gaps")}
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {report.missingOrGaps.length > 0 ? (
@@ -288,7 +281,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
                       ))
                     ) : (
                       <span className="text-xs text-dark-400 dark:text-light-400">
-                        No major gaps identified!
+                        {t("match.noGaps")}
                       </span>
                     )}
                   </div>
@@ -297,7 +290,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 
               <div>
                 <h4 className="mb-1 text-xs font-semibold uppercase tracking-wider text-dark-400 dark:text-light-400">
-                  Project Alignment
+                  {t("match.projects")}
                 </h4>
                 <p className="text-sm leading-relaxed text-dark-600 dark:text-light-200">
                   {report.projectAlignment}
@@ -306,7 +299,7 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 
               <div className="flex justify-end pt-2">
                 <Button variant="primary" onClick={() => setReport(null)}>
-                  Evaluate Another JD
+                  {t("match.again")}
                 </Button>
               </div>
             </div>
@@ -318,6 +311,13 @@ const JobMatchModal: FC<JobMatchModalProps> = ({ isOpen, onClose }) => {
 };
 
 const Hero: FC = () => {
+  const { t, language } = useLanguage();
+  const recruiterSuggestions = [
+    t("suggestion.devLab"),
+    t("suggestion.stack"),
+    t("suggestion.quality"),
+    t("suggestion.remote"),
+  ];
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [typing, setTyping] = useState(false);
@@ -382,14 +382,12 @@ const Hero: FC = () => {
     const Recognition =
       browserWindow.SpeechRecognition || browserWindow.webkitSpeechRecognition;
     if (!Recognition) {
-      setVoiceInputError(
-        "Voice input isn't supported in this browser. Try a browser with speech recognition support, or type your question.",
-      );
+      setVoiceInputError(t("voice.unsupported"));
       return;
     }
 
     const recognition = new Recognition();
-    recognition.lang = "en-US";
+    recognition.lang = language === "fr" ? "fr-FR" : "en-US";
     recognition.continuous = false;
     recognition.interimResults = true;
     voiceInputBaseRef.current = input.trim();
@@ -408,17 +406,11 @@ const Hero: FC = () => {
         event.error === "not-allowed" ||
         event.error === "service-not-allowed"
       ) {
-        setVoiceInputError(
-          "Microphone access was blocked. Allow microphone access in your browser settings to use voice input.",
-        );
+        setVoiceInputError(t("voice.denied"));
       } else if (event.error === "no-speech") {
-        setVoiceInputError(
-          "I didn't catch that. Tap the microphone and try again.",
-        );
+        setVoiceInputError(t("voice.noSpeech"));
       } else if (event.error !== "aborted") {
-        setVoiceInputError(
-          "Voice input couldn't start. Please try again or type your question.",
-        );
+        setVoiceInputError(t("voice.failed"));
       }
     };
     recognition.onend = () => {
@@ -435,9 +427,7 @@ const Hero: FC = () => {
     } catch {
       recognitionRef.current = null;
       setListening(false);
-      setVoiceInputError(
-        "Voice input couldn't start. Please try again or type your question.",
-      );
+      setVoiceInputError(t("voice.failed"));
     }
   };
 
@@ -495,7 +485,7 @@ const Hero: FC = () => {
           audioRef.current = null;
           setSpeaking(false);
           setSpeechError(
-            "Voice playback failed. Use the speaker button to try again.",
+            t("voice.playbackFailed"),
           );
         }
       };
@@ -539,7 +529,7 @@ const Hero: FC = () => {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: conversation }),
+        body: JSON.stringify({ messages: conversation, language }),
       });
       const result = await response.json();
       if (!response.ok || typeof result.answer !== "string") {
@@ -559,7 +549,7 @@ const Hero: FC = () => {
         {
           id: idRef.current++,
           role: "assistant",
-          text: "I can't reach the portfolio assistant right now. Please try again in a moment or use the Contact section.",
+          text: t("chat.error"),
         },
       ]);
     } finally {
@@ -596,22 +586,20 @@ const Hero: FC = () => {
                 size={16}
                 className="text-accent-600 dark:text-accent-400"
               />
-              <span>Computer Science Engineer · Recent graduate</span>
+              <span>{t("hero.degree")}</span>
             </div>
 
             <p className="mb-3 font-mono text-sm tracking-wide text-primary-600 dark:text-primary-300">
-              Hello, I’m Yassine Riahi.
+              {t("hero.hello")}
             </p>
             <h1 className="text-balance text-4xl font-bold leading-[1.08] tracking-tight text-dark-800 dark:text-light-100 sm:text-5xl lg:text-6xl">
-              I build useful software{" "}
+              {t("hero.title")} {" "}
               <span className="text-primary-600 dark:text-primary-300">
-                for the web.
+                {t("hero.titleAccent")}
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-dark-400 dark:text-light-300 lg:mx-0">
-              Software engineer crafting exceptional digital experiences. Ready
-              to tackle complex technical challenges in a full-time software
-              engineering role.
+              {t("hero.description")}
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
@@ -621,7 +609,7 @@ const Hero: FC = () => {
                 size="lg"
                 className="inline-flex items-center justify-center gap-2 rounded-xl"
               >
-                View My Work <ArrowUpRight size={17} />
+                {t("hero.work")} <ArrowUpRight size={17} />
               </Button>
               <Button
                 href="#contact"
@@ -629,7 +617,7 @@ const Hero: FC = () => {
                 size="lg"
                 className="inline-flex items-center justify-center rounded-xl border-primary-200 text-primary-700 hover:bg-primary-50 dark:border-primary-700 dark:text-primary-200 dark:hover:bg-primary-900/30"
               >
-                Get in touch
+                {t("hero.contact")}
               </Button>
               <Button
                 variant="outline"
@@ -637,18 +625,18 @@ const Hero: FC = () => {
                 onClick={() => setIsMatchModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border-accent-300 text-accent-700 hover:bg-accent-50 dark:border-accent-700 dark:text-accent-300 dark:hover:bg-accent-950/30"
               >
-                Evaluate JD Match
+                {t("hero.match")}
               </Button>
             </div>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-dark-300 dark:text-light-400 lg:justify-start">
               <span className="inline-flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-500" />
-                Full-stack engineering
+                {t("hero.fullStack")}
               </span>
               <span className="inline-flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-500" />
-                Applied AI
+                {t("hero.ai")}
               </span>
             </div>
           </motion.div>
@@ -689,16 +677,16 @@ const Hero: FC = () => {
                         className={`h-2 w-2 rounded-full ${typing ? "animate-pulse bg-amber-400" : speaking ? "animate-pulse bg-accent-500" : "bg-accent-500"}`}
                       />
                       {typing
-                        ? "Thinking"
+                        ? t("chat.thinking")
                         : speaking
-                          ? "Speaking"
-                          : "Ready to chat"}
+                          ? t("chat.speaking")
+                          : t("chat.ready")}
                     </div>
                     <p className="text-lg font-semibold text-dark-800 dark:text-light-100">
-                      Portfolio guide
+                      {t("chat.guide")}
                     </p>
                     <p className="mt-1 text-xs text-dark-300 dark:text-light-400">
-                      Ask me about Yassine's work
+                      {t("chat.aboutYassine")}
                     </p>
                   </div>
                   <Sparkles
@@ -714,10 +702,10 @@ const Hero: FC = () => {
                   <header className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-light-600 px-4 py-4 dark:border-dark-400 sm:px-5">
                     <div>
                       <p className="text-sm font-semibold text-dark-800 dark:text-light-100">
-                        Ask about my experience
+                        {t("chat.askExperience")}
                       </p>
                       <p className="mt-0.5 text-xs text-dark-300 dark:text-light-400">
-                        Skills, projects, education, and more
+                        {t("chat.skillsProjects")}
                       </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
@@ -729,11 +717,11 @@ const Hero: FC = () => {
                           if (!nextEnabled) stopSpeech();
                         }}
                         aria-pressed={voiceEnabled}
-                        aria-label={`Turn AI voice replies ${voiceEnabled ? "off" : "on"}`}
+                        aria-label={voiceEnabled ? t("chat.voiceRepliesOn") : t("chat.voiceRepliesOff")}
                         title={
                           voiceEnabled
-                            ? "AI English voice replies on"
-                            : "AI English voice replies off"
+                            ? t("chat.voiceOnTitle")
+                            : t("chat.voiceOffTitle")
                         }
                         className="inline-flex shrink-0 items-center gap-2 rounded-full border border-light-600 bg-white/70 px-3 py-2 text-xs font-medium text-dark-500 transition hover:border-primary-300 hover:text-primary-700 dark:border-dark-400 dark:bg-dark-600 dark:text-light-200 dark:hover:text-light-100"
                       >
@@ -743,7 +731,7 @@ const Hero: FC = () => {
                           <VolumeX size={16} aria-hidden="true" />
                         )}
                         <span className="hidden sm:inline">
-                          {voiceEnabled ? "Retro Robot voice on" : "Voice off"}
+                          {voiceEnabled ? t("chat.voiceOn") : t("chat.voiceOff")}
                         </span>
                       </button>
                     </div>
@@ -762,7 +750,7 @@ const Hero: FC = () => {
                       role="status"
                       className="shrink-0 border-b border-primary-200/70 bg-primary-50/60 px-4 py-2 text-xs text-primary-700 dark:border-primary-900/50 dark:bg-primary-950/20 dark:text-primary-200 sm:px-5"
                     >
-                      Generating the English voice response…
+                      {t("chat.generatingVoice")}
                     </p>
                   )}
 
@@ -771,7 +759,7 @@ const Hero: FC = () => {
                     ref={scrollRef}
                     className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-5"
                     aria-live="polite"
-                    aria-label="Portfolio guide conversation"
+                    aria-label={t("chat.guide")}
                   >
                     <AnimatePresence initial={false}>
                       {!chatStarted && (
@@ -782,8 +770,7 @@ const Hero: FC = () => {
                           exit={{ opacity: 0 }}
                           className="mr-auto max-w-[92%] rounded-2xl rounded-bl-md border border-light-600 bg-light-300 px-4 py-3 text-sm leading-6 text-dark-500 dark:border-dark-400 dark:bg-dark-600 dark:text-light-200"
                         >
-                          Hi! Ask me about my background, skills, or
-                          End-of-Studies Project.
+                          {t("chat.welcome")}
                         </motion.p>
                       )}
                       {messages.map((message) => (
@@ -808,8 +795,8 @@ const Hero: FC = () => {
                               onClick={() =>
                                 void speakAnswer(message.text, message.id)
                               }
-                              aria-label="Read answer aloud"
-                              title="Read answer aloud"
+                              aria-label={t("chat.readAloud")}
+                              title={t("chat.readAloud")}
                               className="mb-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-primary-600 transition hover:bg-primary-100 dark:text-primary-300 dark:hover:bg-dark-500"
                             >
                               <Volume2 size={16} aria-hidden="true" />
@@ -825,7 +812,7 @@ const Hero: FC = () => {
                           exit={{ opacity: 0 }}
                           className="flex w-fit gap-1.5 rounded-2xl rounded-bl-md border border-light-600 bg-light-300 px-4 py-3 dark:border-dark-400 dark:bg-dark-600"
                           role="status"
-                          aria-label="Preparing a reply"
+                            aria-label={t("chat.preparing")}
                         >
                           {[0, 1, 2].map((dot) => (
                             <motion.span
@@ -846,7 +833,7 @@ const Hero: FC = () => {
                     {/* Recruiter Suggestion Chips Re-shown after every response */}
                     {!typing && (
                       <div className="flex flex-wrap gap-2 pt-1">
-                        {RECRUITER_SUGGESTIONS.map((suggestion) => (
+                        {recruiterSuggestions.map((suggestion) => (
                           <button
                             key={suggestion}
                             type="button"
@@ -876,10 +863,10 @@ const Hero: FC = () => {
                       }}
                       placeholder={
                         listening
-                          ? "Listening... speak your question"
-                          : "Ask a question..."
+                          ? t("chat.listening")
+                          : t("chat.placeholder")
                       }
-                      aria-label="Ask the portfolio guide a question"
+                      aria-label={t("chat.askGuide")}
                       className="min-w-0 flex-1 rounded-2xl border border-light-600 bg-light-100 px-4 py-3 text-sm text-dark-800 outline-none transition-shadow placeholder:text-dark-300 focus:ring-2 focus:ring-primary-400 dark:border-dark-400 dark:bg-dark-600 dark:text-light-100 dark:placeholder:text-light-400"
                     />
                     <button
@@ -888,10 +875,10 @@ const Hero: FC = () => {
                       disabled={typing}
                       aria-pressed={listening}
                       aria-label={
-                        listening ? "Stop voice input" : "Ask using your voice"
+                        listening ? t("chat.stopVoice") : t("chat.askVoice")
                       }
                       title={
-                        listening ? "Stop listening" : "Ask using your voice"
+                        listening ? t("chat.stopListening") : t("chat.askVoice")
                       }
                       className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 disabled:cursor-not-allowed disabled:opacity-40 ${
                         listening
@@ -908,7 +895,7 @@ const Hero: FC = () => {
                     <button
                       type="submit"
                       disabled={!input.trim() || typing}
-                      aria-label="Send question"
+                      aria-label={t("chat.send")}
                       className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-md shadow-primary-900/15 transition-colors hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       <Send size={17} aria-hidden="true" />
@@ -931,7 +918,7 @@ const Hero: FC = () => {
 
       <a
         href="#about"
-        aria-label="Scroll to about section"
+        aria-label={t("chat.scrollAbout")}
         className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full p-2 text-dark-300 transition-colors hover:text-primary-600 dark:text-light-400 dark:hover:text-accent-300"
       >
         <ArrowDown size={19} aria-hidden="true" />

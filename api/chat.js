@@ -65,7 +65,7 @@ function validateMessages(value) {
   return messages;
 }
 
-async function askGemini(messages) {
+async function askGemini(messages, languageInstruction) {
   const apiKey = getServerEnv("GEMINI_API_KEY");
   if (!apiKey) throw new Error("Gemini is not configured.");
 
@@ -79,7 +79,7 @@ async function askGemini(messages) {
         "x-goog-api-key": apiKey,
       },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemInstruction }] },
+        systemInstruction: { parts: [{ text: `${systemInstruction}\n\nReply in ${languageInstruction}.` }] },
         contents: messages.map((message) => ({
           role: message.role === "assistant" ? "model" : "user",
           parts: [{ text: message.content }],
@@ -100,7 +100,7 @@ async function askGemini(messages) {
   return answer;
 }
 
-async function askGroq(messages) {
+async function askGroq(messages, languageInstruction) {
   const apiKey = getServerEnv("GROQ_API_KEY");
   if (!apiKey) throw new Error("Groq is not configured.");
 
@@ -114,7 +114,7 @@ async function askGroq(messages) {
     body: JSON.stringify({
       model,
       messages: [
-        { role: "system", content: systemInstruction },
+        { role: "system", content: `${systemInstruction}\n\nReply in ${languageInstruction}.` },
         ...messages,
       ],
       temperature: 0.35,
@@ -137,17 +137,18 @@ export default async function chatHandler(req, res) {
   try {
     const body = await readJsonBody(req);
     const messages = validateMessages(body.messages);
+    const languageInstruction = body.language === "fr" ? "French" : "English";
 
     let geminiError;
     try {
-      const answer = await askGemini(messages);
+      const answer = await askGemini(messages, languageInstruction);
       return sendJson(res, 200, { answer, provider: "gemini" });
     } catch (error) {
       geminiError = error;
     }
 
     try {
-      const answer = await askGroq(messages);
+      const answer = await askGroq(messages, languageInstruction);
       return sendJson(res, 200, { answer, provider: "groq" });
     } catch (groqError) {
       const failures = [

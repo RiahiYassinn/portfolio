@@ -4,10 +4,11 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
 import { projectsData } from "../../data/projects";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const cardThemes = [
   {
-    badge: "01 / FLAGSHIP",
+    badge: "projects.badge1",
     accent: "#89e5ff",
     glow: "rgba(21, 155, 206, 0.25)",
     gradient:
@@ -15,7 +16,7 @@ const cardThemes = [
     border: "border-cyan-400/30",
   },
   {
-    badge: "02 / AI AGENT",
+    badge: "projects.badge2",
     accent: "#ffc58e",
     glow: "rgba(217, 120, 80, 0.25)",
     gradient:
@@ -23,7 +24,7 @@ const cardThemes = [
     border: "border-orange-400/30",
   },
   {
-    badge: "03 / AI & FULL-STACK",
+    badge: "projects.badge3",
     accent: "#8ef4d1",
     glow: "rgba(34, 168, 139, 0.25)",
     gradient:
@@ -31,7 +32,7 @@ const cardThemes = [
     border: "border-emerald-400/30",
   },
   {
-    badge: "04 / MARKETPLACE",
+    badge: "projects.badge4",
     accent: "#d1a8ff",
     glow: "rgba(132, 87, 212, 0.25)",
     gradient:
@@ -39,7 +40,7 @@ const cardThemes = [
     border: "border-purple-400/30",
   },
   {
-    badge: "05 / MOBILE & MAPS",
+    badge: "projects.badge5",
     accent: "#73d3ff",
     glow: "rgba(21, 155, 206, 0.25)",
     gradient:
@@ -47,7 +48,7 @@ const cardThemes = [
     border: "border-sky-400/30",
   },
   {
-    badge: "06 / E-COMMERCE",
+    badge: "projects.badge6",
     accent: "#f0dcff",
     glow: "rgba(132, 87, 212, 0.25)",
     gradient:
@@ -55,7 +56,7 @@ const cardThemes = [
     border: "border-indigo-400/30",
   },
   {
-    badge: "07 / FINTECH",
+    badge: "projects.badge7",
     accent: "#ffe4b8",
     glow: "rgba(217, 120, 80, 0.25)",
     gradient:
@@ -65,6 +66,7 @@ const cardThemes = [
 ];
 
 const Projects: FC = () => {
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -132,8 +134,8 @@ const Projects: FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
-            title="Selected Projects"
-            subtitle="Swipe or scroll through full-stack systems, microservices architectures, and applied AI products."
+            title={t("projects.title")}
+            subtitle={t("projects.subtitle")}
           />
 
           {/* Navigation Controls */}
@@ -143,14 +145,14 @@ const Projects: FC = () => {
             </span>
             <button
               onClick={() => scrollToProject(activeIndex - 1)}
-              aria-label="Previous project"
+              aria-label={t("projects.previous")}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-dark-800/15 bg-white text-dark-800 shadow-sm transition-all hover:scale-105 hover:bg-primary-600 hover:text-white dark:border-white/15 dark:bg-dark-900 dark:text-white dark:hover:bg-primary-500"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => scrollToProject(activeIndex + 1)}
-              aria-label="Next project"
+              aria-label={t("projects.next")}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-dark-800/15 bg-white text-dark-800 shadow-sm transition-all hover:scale-105 hover:bg-primary-600 hover:text-white dark:border-white/15 dark:bg-dark-900 dark:text-white dark:hover:bg-primary-500"
             >
               <ChevronRight size={20} />
@@ -203,7 +205,7 @@ const Projects: FC = () => {
                     style={{ color: theme.accent }}
                     className="font-mono text-xs font-semibold uppercase tracking-[0.2em]"
                   >
-                    {theme.badge}
+                    {t(theme.badge)}
                   </span>
                   <span className="font-mono text-xs text-white/40">
                     #{String(index + 1).padStart(2, "0")}
@@ -211,18 +213,18 @@ const Projects: FC = () => {
                 </div>
 
                 <h3 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-                  {project.title}
+                  {t(`project.title${project.id + 1}`)}
                   <span style={{ color: theme.accent }}>.</span>
                 </h3>
 
                 <p className="mt-4 text-sm leading-relaxed text-light-100/90 sm:text-base">
-                  {project.description}
+                  {t(`project.description${project.id + 1}`)}
                 </p>
 
                 {/* Full Tech Stack Pills */}
                 <ul
                   className="mt-6 flex flex-wrap gap-1.5"
-                  aria-label={`${project.title} technologies`}
+                  aria-label={`${t(`project.title${project.id + 1}`)} ${t("projects.technologies")}`}
                 >
                   {project.technologies.map((tech) => (
                     <li
@@ -240,7 +242,7 @@ const Projects: FC = () => {
                 <div className="relative h-48 w-full overflow-hidden rounded-2xl border border-white/15 bg-black/30 sm:h-56 lg:h-[320px]">
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={t(`project.title${project.id + 1}`)}
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -257,7 +259,7 @@ const Projects: FC = () => {
           <button
             key={project.id}
             onClick={() => scrollToProject(idx)}
-            aria-label={`Go to ${project.title}`}
+            aria-label={`${t("projects.goTo")} ${t(`project.title${project.id + 1}`)}`}
             className={`h-2 rounded-full transition-all duration-300 ${
               idx === activeIndex
                 ? "w-8 bg-primary-600 dark:bg-accent-300"

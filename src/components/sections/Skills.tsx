@@ -4,22 +4,23 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import SectionHeader from "../ui/SectionHeader";
 import SkillCard from "../ui/SkillCard";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const skillCategories = [
   {
-    name: "Frontend Development",
+    key: "skills.frontend",
     icon: <Code2 size={24} strokeWidth={1.8} />,
     skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
     color: "primary",
   },
   {
-    name: "Backend Engineering",
+    key: "skills.backend",
     icon: <Server size={24} strokeWidth={1.8} />,
     skills: ["NestJS", "FastAPI", "Node.js", "Python", "Java"],
     color: "secondary",
   },
   {
-    name: "Applied AI",
+    key: "skills.ai",
     icon: <Brain size={24} strokeWidth={1.8} />,
     skills: [
       "RAG Pipelines",
@@ -30,7 +31,7 @@ const skillCategories = [
     color: "accent",
   },
   {
-    name: "System Architecture",
+    key: "skills.architecture",
     icon: <Blocks size={24} strokeWidth={1.8} />,
     skills: [
       "Microservices",
@@ -41,7 +42,7 @@ const skillCategories = [
     color: "primary",
   },
   {
-    name: "Databases & Data",
+    key: "skills.data",
     icon: <Database size={24} strokeWidth={1.8} />,
     skills: [
       "PostgreSQL",
@@ -53,7 +54,7 @@ const skillCategories = [
     color: "secondary",
   },
   {
-    name: "DevOps & Workflow",
+    key: "skills.devops",
     icon: <Workflow size={24} strokeWidth={1.8} />,
     skills: ["Git & GitHub", "Docker", "CI/CD Pipelines", "Linux / CLI"],
     color: "accent",
@@ -61,6 +62,7 @@ const skillCategories = [
 ];
 
 const Skills: FC = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -70,8 +72,8 @@ const Skills: FC = () => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
-          title="Skills & Expertise"
-          subtitle="Technologies and architectural patterns I use to build scalable systems."
+          title={t("skills.title")}
+          subtitle={t("skills.subtitle")}
         />
 
         <motion.div
@@ -86,8 +88,8 @@ const Skills: FC = () => {
         >
           {skillCategories.map((category, index) => (
             <SkillCard
-              key={category.name}
-              name={category.name}
+              key={category.key}
+              name={t(category.key)}
               icon={category.icon}
               skills={category.skills}
               colorScheme={category.color as "primary" | "secondary" | "accent"}

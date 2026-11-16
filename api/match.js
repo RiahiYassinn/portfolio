@@ -13,8 +13,9 @@ const reportSchema = `{
   "projectAlignment": "A short paragraph connecting relevant projects to the role."
 }`;
 
-function buildPrompt(jobDescription) {
-  return `You are an expert technical recruiter and career advisor. Compare the job description with the candidate facts below. Return only a valid JSON object matching this schema, with no markdown:
+function buildPrompt(jobDescription, language) {
+  const responseLanguage = language === "fr" ? "French" : "English";
+  return `You are an expert technical recruiter and career advisor. Compare the job description with the candidate facts below. Write all human-readable report text in ${responseLanguage}. Return only a valid JSON object matching this schema, with no markdown:
 ${reportSchema}
 
 Rules: matchPercentage must be a number from 0 to 100; matchingSkills and missingOrGaps must be arrays of strings. Do not invent experience that is not in the portfolio facts.
@@ -145,7 +146,7 @@ export default async function matchHandler(req, res) {
       return sendJson(res, 400, { error: "Please provide a valid job description (at least 20 characters)." });
     }
 
-    const prompt = buildPrompt(jobDescription);
+    const prompt = buildPrompt(jobDescription, body.language);
     let geminiError;
     try {
       const report = await generateWithGemini(prompt);

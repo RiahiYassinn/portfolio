@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
-import resumeUrl from "../../assets/CV Riahi Yassine ( Anglais ).pdf";
+import { Languages, Menu, Moon, Sun, X } from "lucide-react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 interface HeaderProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
 }
-
+var resumeUrl = "https://riahiyassine.my.canva.site";
+var resumeUrlFr = "https://riahiyassine.my.canva.site/cv-riahi-yassine";
 const links = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Education", href: "#education" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { key: "nav.about", href: "#about" },
+  { key: "nav.skills", href: "#skills" },
+  { key: "nav.education", href: "#education" },
+  { key: "nav.projects", href: "#projects" },
+  { key: "nav.contact", href: "#contact" },
 ];
 
 const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
+  const { language, setLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -73,7 +75,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
           href="#hero"
           onClick={closeMobileMenu}
           className="inline-flex shrink-0 items-center gap-2.5 rounded-lg text-dark-800 dark:text-light-100"
-          aria-label="Yassine Riahi, home"
+          aria-label={t("nav.home")}
         >
           <span className="font-mono">{"<"}</span>
           <span className="mx-1 text-lg">Riahi Yassine</span>
@@ -81,14 +83,14 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
         </a>
 
         <nav
-          aria-label="Main navigation"
+          aria-label={t("nav.main")}
           className="hidden items-center gap-1 rounded-full border border-light-600/80 bg-light-100/70 p-1 dark:border-dark-400/80 dark:bg-dark-700/60 md:flex"
         >
           {links.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
               <a
-                key={link.name}
+                key={link.key}
                 href={link.href}
                 aria-current={isActive ? "location" : undefined}
                 className={`rounded-full px-3 py-2 text-sm font-medium transition-colors ${
@@ -97,7 +99,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
                     : "text-dark-400 hover:text-dark-800 dark:text-light-300 dark:hover:text-light-100"
                 }`}
               >
-                {link.name}
+                {t(link.key)}
               </a>
             );
           })}
@@ -108,28 +110,34 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
             type="button"
             onClick={toggleDarkMode}
             className="flex h-10 w-10 items-center justify-center rounded-full text-dark-400 transition-colors hover:bg-light-300 hover:text-primary-700 dark:text-light-300 dark:hover:bg-dark-600 dark:hover:text-accent-300"
-            aria-label={
-              darkMode ? "Switch to light mode" : "Switch to dark mode"
-            }
+            aria-label={darkMode ? t("theme.light") : t("theme.dark")}
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+          <button
+            type="button"
+            onClick={() => setLanguage(language === "en" ? "fr" : "en")}
+            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full border border-light-600 px-3 text-xs font-semibold text-dark-500 transition-colors hover:bg-light-300 hover:text-primary-700 dark:border-dark-400 dark:text-light-200 dark:hover:bg-dark-600 dark:hover:text-accent-300"
+            aria-label={t("nav.switchTo")}
+            title={t("nav.language")}
+          >
+            <Languages size={15} aria-hidden="true" />
+            {language === "en" ? "FR" : "EN"}
+          </button>
           <a
-            href={resumeUrl}
+            href={language === "en" ? resumeUrl : resumeUrlFr}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden rounded-full bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 dark:bg-accent-500 dark:text-dark-900 dark:hover:bg-accent-400 sm:inline-flex"
           >
-            Resume
+            {t("nav.resume")}
           </a>
           <button
             type="button"
             onClick={() => setMobileMenuOpen((open) => !open)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
-            aria-label={
-              mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
+            aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             className="flex h-10 w-10 items-center justify-center rounded-full text-dark-500 transition-colors hover:bg-light-300 dark:text-light-200 dark:hover:bg-dark-600 md:hidden"
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -141,7 +149,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
         {mobileMenuOpen && (
           <motion.nav
             id="mobile-navigation"
-            aria-label="Mobile navigation"
+            aria-label={t("nav.mobile")}
             className="absolute inset-x-0 top-full border-b border-light-600 bg-light-100/95 px-4 pb-5 pt-3 shadow-lg backdrop-blur-xl dark:border-dark-400 dark:bg-dark-700/95 md:hidden"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -153,7 +161,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
                 const isActive = activeSection === link.href.slice(1);
                 return (
                   <a
-                    key={link.name}
+                    key={link.key}
                     href={link.href}
                     aria-current={isActive ? "location" : undefined}
                     onClick={closeMobileMenu}
@@ -163,7 +171,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
                         : "text-dark-500 hover:bg-light-300 dark:text-light-200 dark:hover:bg-dark-600"
                     }`}
                   >
-                    {link.name}
+                    {t(link.key)}
                   </a>
                 );
               })}
@@ -174,7 +182,7 @@ const Header: FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
                 onClick={closeMobileMenu}
                 className="mt-2 rounded-xl bg-primary-600 px-4 py-3 text-center text-sm font-semibold text-white dark:bg-accent-500 dark:text-dark-900"
               >
-                View resume
+                {t("nav.viewResume")}
               </a>
             </div>
           </motion.nav>

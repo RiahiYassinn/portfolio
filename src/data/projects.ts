@@ -16,7 +16,7 @@ export const projectsData: IProject[] = [
     description:
       "Eliminates generic developer upskilling by analyzing real GitHub commit history to uncover skill gaps. Built on an event-driven microservices architecture, it uses RAG pipelines to generate tailored learning paths, validate skills via automated quizzes, and streamline 1-on-1 mentorship booking.",
     image:
-      "src/assets/cyber-security-expert-working-with-technology-neon-lights_23-2151645607.avif", // Fallback thumbnail for the bottom horizontal list
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/cyber-security-expert-working-with-technology-neon-lights_23-2151645607.avif", 
     technologies: [
       "Next.js",
       "NestJS",
@@ -36,7 +36,7 @@ export const projectsData: IProject[] = [
     description:
       "Solves slow manual catalog audits and stagnant e-commerce inventory by autonomously analyzing Magento store data. It pinpoints underperforming SKUs and generates data-backed discounting and product-bundling strategies to accelerate stock turnover and boost conversion rates.",
     image:
-      "src/assets/variety-people-multitasking-3d-cartoon-scene_23-2151294550.avif",
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/variety-people-multitasking-3d-cartoon-scene_23-2151294550.avif",
     technologies: [
       "TypeScript",
       "Next.js",
@@ -57,7 +57,7 @@ export const projectsData: IProject[] = [
     description:
       "Bridges the logistics gap between surplus food donors, charities, and volunteers to reduce preventable food waste. Combines AI food quality assessment, demand forecasting, real-time pickup route optimization, and carbon-offset tracking to get perishable food delivered before spoilage.",
     image:
-      "src/assets/istockphoto-1094461256-612x612.jpg",
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/istockphoto-1094461256-612x612.jpg",
     technologies: [
       "React",
       "Node.js",
@@ -77,7 +77,7 @@ export const projectsData: IProject[] = [
     description:
       "Diverts reusable industrial and household materials from landfills by connecting waste generators directly with local makers and repairers. Uses AI image classification to categorize discarded materials and quantify environmental savings per transaction.",
     image:
-      "src/assets/waste-management-concept-illustration_114360-8685.avif",
+      "https://raw.githubusercontent.com/RiahiYassinn/portfolio/refs/heads/main/src/assets/waste-management-concept-illustration_114360-8685.avif",
     technologies: [
       "Laravel",
       "PHP",

@@ -1,22 +1,32 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Award, BookOpen, ExternalLink, GraduationCap } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
+import { useLanguage } from "../../i18n/LanguageContext";
 
-const education = [
+const education: {
+  degreeKey: string;
+  institutionKey: string;
+  durationKey?: string;
+  duration?: string;
+  descriptionKey?: string;
+  description?: string;
+  items?: { name: string; url: string }[];
+  courses?: string[];
+  icon: ReactNode;
+}[] = [
   {
-    degree: "Computer Science Engineering Degree",
-    institution: "Private Higher School of Engineering and Technology (ESPRIT)",
-    duration: "Graduate",
-    description:
-      "Graduated as a Computer Science Engineer, with academic work in software architecture, algorithms, web development, and database systems.",
+    degreeKey: "education.degree",
+    institutionKey: "education.school",
+    durationKey: "education.graduate",
+    descriptionKey: "education.degreeDescription",
     icon: <GraduationCap size={21} />,
   },
   {
-    degree: "Certifications",
-    institution: "Professional development",
-    description: "Selected certifications and learning credentials.",
+    degreeKey: "education.certifications",
+    institutionKey: "education.professional",
+    descriptionKey: "education.certDescription",
     items: [
       {
         name: "Graph Developer – Associate",
@@ -38,8 +48,8 @@ const education = [
     icon: <Award size={21} />,
   },
   {
-    degree: "Baccalaureate in Experimental Science",
-    institution: "Mahmoud Messaidi High School, Majaz Al Bab",
+    degreeKey: "education.bac",
+    institutionKey: "education.highSchool",
     duration: "2015 – 2020",
     description: "",
     courses: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science"],
@@ -47,20 +57,29 @@ const education = [
   },
 ];
 
+const frenchCourses: Record<string, string> = {
+  Mathematics: "Mathématiques",
+  Physics: "Physique",
+  Chemistry: "Chimie",
+  Biology: "Biologie",
+  "Computer Science": "Informatique",
+};
+
 const Education: FC = () => {
+  const { t, language } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <section id="education" className="bg-light-100/70 py-20 dark:bg-dark-700/65 md:py-28">
       <div className="container mx-auto px-4 md:px-6">
-        <SectionHeader title="Education" subtitle="Academic background and selected credentials." />
+        <SectionHeader title={t("education.title")} subtitle={t("education.subtitle")} />
 
         <div ref={ref} className="relative mx-auto mt-12 max-w-4xl">
           <div aria-hidden="true" className="absolute bottom-6 left-5 top-6 w-px bg-light-600 dark:bg-dark-400 sm:left-6" />
           <div className="space-y-5">
             {education.map((item, index) => (
               <motion.article
-                key={item.degree}
+                key={item.degreeKey}
                 initial={{ opacity: 0, x: 14 }}
                 animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 14 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
@@ -72,16 +91,16 @@ const Education: FC = () => {
                 <div className="rounded-2xl border border-light-600 bg-light-200 p-5 shadow-sm dark:border-dark-400 dark:bg-dark-600 sm:p-6">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold tracking-tight text-dark-800 dark:text-light-100 sm:text-xl">{item.degree}</h3>
-                      <p className="mt-1 text-sm font-medium text-primary-700 dark:text-primary-200">{item.institution}</p>
+                      <h3 className="text-lg font-semibold tracking-tight text-dark-800 dark:text-light-100 sm:text-xl">{t(item.degreeKey)}</h3>
+                      <p className="mt-1 text-sm font-medium text-primary-700 dark:text-primary-200">{t(item.institutionKey)}</p>
                     </div>
-                    {item.duration && (
+                    {(item.durationKey || item.duration) && (
                       <span className="w-fit rounded-full bg-light-100 px-3 py-1 text-xs font-medium text-dark-400 dark:bg-dark-500 dark:text-light-300">
-                        {item.duration}
+                        {item.durationKey ? t(item.durationKey) : item.duration}
                       </span>
                     )}
                   </div>
-                  {item.description && <p className="mt-4 text-sm leading-6 text-dark-400 dark:text-light-300">{item.description}</p>}
+                  {(item.descriptionKey || item.description) && <p className="mt-4 text-sm leading-6 text-dark-400 dark:text-light-300">{item.descriptionKey ? t(item.descriptionKey) : item.description}</p>}
 
                   {item.items && (
                     <ul className="mt-4 flex flex-wrap gap-2">
@@ -101,9 +120,9 @@ const Education: FC = () => {
                   )}
 
                   {item.courses && (
-                    <ul className="mt-4 flex flex-wrap gap-2" aria-label="Subjects studied">
+                    <ul className="mt-4 flex flex-wrap gap-2" aria-label={t("education.subjects")}>
                       {item.courses.map((course) => (
-                        <li key={course} className="rounded-full bg-light-100 px-3 py-1.5 text-xs text-dark-400 dark:bg-dark-500 dark:text-light-300">{course}</li>
+                        <li key={course} className="rounded-full bg-light-100 px-3 py-1.5 text-xs text-dark-400 dark:bg-dark-500 dark:text-light-300">{language === "fr" ? frenchCourses[course] ?? course : course}</li>
                       ))}
                     </ul>
                   )}
