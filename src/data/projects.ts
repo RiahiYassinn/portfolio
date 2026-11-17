@@ -25,7 +25,9 @@ export const projectsData: IProject[] = [
       "PostgreSQL",
       "MongoDB",
       "RAG",
+      "LLMs",
       "Docker",
+      "CI/CD Pipline"
     ],
     githubUrl: "https://github.com/RiahiYassinn", // Update if you have a specific repo link
     isFeatured: true,

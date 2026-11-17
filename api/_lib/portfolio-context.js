@@ -18,7 +18,7 @@ Key Production & Architectural Projects:
   - Enterprise Field App (Sotacib): Mobile-first commercial tracking application built for offline-first capabilities and interactive mapping for sales teams (React, Next.js, Capacitor, Leaflet Maps).
 
 Professional Contact Links:
-- Email: yassineriahi540@gmail.com
+- Email: Riahi.Yassine@proton.me
 - LinkedIn: linkedin.com/in/yassine-riahi
 - GitHub: github.com/RiahiYassinn
 `;
